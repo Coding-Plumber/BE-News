@@ -7,7 +7,6 @@ const router = express.Router();
 router.get('/', (req, res) => {
     return getTopics()
       .then((topics) => {
-        console.log(topics.rows, '<--- topics');
         res.status(200).send(topics.rows)
       })
       .catch(() => {

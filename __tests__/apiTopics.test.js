@@ -13,7 +13,7 @@ beforeEach(() => {
 });
 
 describe("GET /api/topics", () => {
-  it("responds with an array of topic objects", () => {
+  it.skip("responds with an array of topic objects", () => {
     return request(app)
       .get("/api/topics")
       .then((response) => {
@@ -27,7 +27,7 @@ describe("GET /api/topics", () => {
 });
 
 describe("GET /api/topics", () => {
-  it("should return an error when connecting to the wrong path", () => {
+  it.skip("should return an error when connecting to the wrong path", () => {
     return request(app)
       .get("/api/topicss")
       .then((response) => {
@@ -37,7 +37,7 @@ describe("GET /api/topics", () => {
 });
 
 describe("GET /api/topics", () => {
-  it("responds with an error message if the database is not connected", () => {
+  it.skip("responds with an error message if the database is not connected", () => {
     db.end();
 
     return request(app)

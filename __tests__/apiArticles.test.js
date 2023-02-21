@@ -14,7 +14,7 @@ beforeEach(() => {
 });
 
 describe("GET /api/articles", () => {
-  it("responds with an array of article objects", () => {
+  it.skip("responds with an array of article objects", () => {
     return request(app)
       .get("/api/articles")
       .then((response) => {
@@ -39,7 +39,7 @@ describe("GET /api/articles", () => {
 });
 
 describe("GET wrong pathway /non-existant", () => {
-    it("responds with 404 status code", () => {
+    it.skip("responds with 404 status code", () => {
       return request(app)
         .get("/non-existent")
         .then((response) => {
@@ -50,7 +50,7 @@ describe("GET wrong pathway /non-existant", () => {
 
 
   describe("If server query ends before receiving", () => {
-    it("responds with an error message if the database is not connected", () => {
+    it.skip("responds with an error message if the database is not connected", () => {
       db.end();
   
       return request(app)

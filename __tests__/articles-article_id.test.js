@@ -21,13 +21,13 @@ describe("GET /api/articles/:article_id", () => {
         expect(response.status).toBe(200);
         expect(response.body).toBeInstanceOf(Object);
         expect(response.body).toHaveProperty("article");
-        expect(response.body.article).toEqual([{"article_id": 3, "article_img_url": "https://images.pexels.com/photos/158651/news-newsletter-newspaper-information-158651.jpeg?w=700&h=700", "author": "icellusedkars", "body": "some gifs", "created_at": "2020-11-03T09:12:00.000Z", "title": "Eight pug gifs that remind me of mitch", "topic": "mitch", "votes": 0}]);
-        expect(response.body.article[0]).toHaveProperty("article_id");
-        expect(response.body.article[0]).toHaveProperty("title");
-        expect(response.body.article[0]).toHaveProperty("topic");
-        expect(response.body.article[0]).toHaveProperty("created_at");
-        expect(response.body.article[0]).toHaveProperty("votes");
-        expect(response.body.article[0]).toHaveProperty("article_img_url");
+        expect(response.body.article).toEqual({"article_id": 3, "article_img_url": "https://images.pexels.com/photos/158651/news-newsletter-newspaper-information-158651.jpeg?w=700&h=700", "author": "icellusedkars", "body": "some gifs", "comment_count": "2", "created_at": "2020-11-03T09:12:00.000Z", "title": "Eight pug gifs that remind me of mitch", "topic": "mitch", "votes": 0});
+        expect(response.body.article).toHaveProperty("article_id");
+        expect(response.body.article).toHaveProperty("title");
+        expect(response.body.article).toHaveProperty("topic");
+        expect(response.body.article).toHaveProperty("created_at");
+        expect(response.body.article).toHaveProperty("votes");
+        expect(response.body.article).toHaveProperty("article_img_url");
       });
   });
 });
@@ -44,7 +44,7 @@ describe("GET wrong pathway /non-existant", () => {
 
 
 describe("GET non existant article_id", () => {
-    it.only("GET /api/articles/:article_id/hello", () => {
+    it("GET /api/articles/:article_id/hello", () => {
       return request(app)
         .get("/api/articles/37")
         .then((response) => {

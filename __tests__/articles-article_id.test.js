@@ -21,13 +21,18 @@ describe("GET /api/articles/:article_id", () => {
         expect(response.status).toBe(200);
         expect(response.body).toBeInstanceOf(Object);
         expect(response.body).toHaveProperty("article");
-        expect(response.body.article).toEqual({"article_id": 3, "article_img_url": "https://images.pexels.com/photos/158651/news-newsletter-newspaper-information-158651.jpeg?w=700&h=700", "author": "icellusedkars", "body": "some gifs", "comment_count": "2", "created_at": "2020-11-03T09:12:00.000Z", "title": "Eight pug gifs that remind me of mitch", "topic": "mitch", "votes": 0});
-        expect(response.body.article).toHaveProperty("article_id");
-        expect(response.body.article).toHaveProperty("title");
-        expect(response.body.article).toHaveProperty("topic");
-        expect(response.body.article).toHaveProperty("created_at");
-        expect(response.body.article).toHaveProperty("votes");
-        expect(response.body.article).toHaveProperty("article_img_url");
+        expect(response.body.article).toEqual({
+          article_id: 3,
+          article_img_url:
+            "https://images.pexels.com/photos/158651/news-newsletter-newspaper-information-158651.jpeg?w=700&h=700",
+          author: "icellusedkars",
+          body: "some gifs",
+          comment_count: "2",
+          created_at: "2020-11-03T09:12:00.000Z",
+          title: "Eight pug gifs that remind me of mitch",
+          topic: "mitch",
+          votes: 0,
+        });
       });
   });
 });
@@ -42,15 +47,25 @@ describe("GET wrong pathway /non-existant", () => {
   });
 });
 
-
 describe("GET non existant article_id", () => {
-    it("GET /api/articles/:article_id/hello", () => {
-      return request(app)
-        .get("/api/articles/37")
-        .then((response) => {
-          expect(response.status).toBe(404);
-          expect(response.body).toEqual({message: "Article not found"});
-          expect(response.body).toBeInstanceOf(Object);
-        });
-    });
+  it("GET /api/articles/:article_id/37", () => {
+    return request(app)
+      .get("/api/articles/37")
+      .then((response) => {
+        expect(response.status).toBe(404);
+        expect(response.body).toEqual({ message: "Article not found" });
+        expect(response.body).toBeInstanceOf(Object);
+      });
   });
+});
+
+describe("String input as pathway", () => {
+  it("GET /api/articles/:article_id/'22'", () => {
+    return request(app)
+      .get("/api/articles/'22'")
+      .then((response) => {
+        expect(response.status).toBe(400);
+        expect(response.body.message).toEqual("Invalid input");
+      });
+  });
+});

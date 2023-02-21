@@ -7,23 +7,23 @@ const {
 
 const express = require("express");
 const router = express.Router();
+const errorHandler = require('../errors/errorHandler');
 
 router.get("/", (req, res) => {
-  return getArticlesWithCommentCount()
+  getArticlesWithCommentCount()
     .then((sortedArticlesDesc) => {
       res.status(200).send({ articles: sortedArticlesDesc });
     })
-    .catch((err) => {
-      console.log(err);
-      res.status(500).send({
-        status: "error",
-        message: "Internal server error",
-      });
+    .catch((error) => {
+      errorHandler(error, req, res);
     });
 });
 
 router.get("/:article_id", (req, res) => {
   const articleId = req.params.article_id;
+  if (isNaN(articleId)) {
+    return res.status(400).send({ message: "Invalid input" });
+  }
   getArticleById(articleId)
     .then((article) => {
       if (!article) {
@@ -34,12 +34,11 @@ router.get("/:article_id", (req, res) => {
         res.status(200).send({ article });
       }
     })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).send({
-        message: "Internal server error",
-      });
+    .catch((error) => {
+      errorHandler(error, req, res);
     });
 });
+
+
 
 module.exports = router;

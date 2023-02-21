@@ -46,12 +46,4 @@ describe("GET /api/articles", () => {
   });
 });
 
-describe("GET wrong pathway /non-existant", () => {
-  it("responds with 404 status code", () => {
-    return request(app)
-      .get("/non-existent")
-      .then((response) => {
-        expect(response.status).toBe(404);
-      });
-  });
-});
+

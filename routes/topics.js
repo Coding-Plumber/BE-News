@@ -1,19 +1,16 @@
 const apiTopics = require("express").Router();
 const getTopics = require('../models/topics');
-
+const errorHandler = require('../errors/errorHandler');
 const express = require('express');
 const router = express.Router();
 
 router.get('/', (req, res) => {
-    return getTopics()
+    getTopics()
       .then((topics) => {
-        res.status(200).send(topics.rows)
+        return res.status(200).send(topics.rows);
       })
-      .catch(() => {
-        res.status(500).send({
-          status: 'error',
-          message: 'Internal server error'
-        });
+      .catch((error) => {
+        errorHandler(error, req, res);
       });
   });
 

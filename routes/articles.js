@@ -1,44 +1,10 @@
-const apiArticles = require("express").Router();
-const {
-  getArticlesWithCommentCount,
-  getArticleById,
-} = require("../models/articles");
-
 const express = require("express");
 const router = express.Router();
-const errorHandler = require("../errors/errorHandler");
 
-router.get("/", (req, res) => {
-  getArticlesWithCommentCount()
-    .then((sortedArticlesDesc) => {
-      res.status(200).send({ articles: sortedArticlesDesc });
-    })
-    .catch((error) => {
-      errorHandler(error, req, res);
-    });
-});
+const { getArticleController, getArticleByIdController} = require('../controllers/articles.controller');
 
-router.get("/:article_id", (req, res) => {
-  const articleId = req.params.article_id;
-  if (isNaN(articleId)) {
-    return res.status(400).send({ message: "Invalid input" });
-  }
-  getArticleById(articleId)
-    .then((article) => {
-      if (!article) {
-        res.status(404).send({
-          message: "Article not found",
-        });
-      } else {
-        const requestedArticle = {...article, 
-        comment_count: Number(article.comment_count),
-      }
-        res.status(200).send({ requestedArticle });
-      }
-    })
-    .catch((error) => {
-      errorHandler(error, req, res);
-    });
-});
+router.get("/", getArticleController);
+
+router.get("/:article_id", getArticleByIdController);
 
 module.exports = router;

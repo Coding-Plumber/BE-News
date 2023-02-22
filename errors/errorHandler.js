@@ -1,9 +1,39 @@
 
+function handle400Errors(err, req, res, next) {
+  if (err.statusCode === 400) {
+    res.status(400).json({
+      error: {
+        message: err.message,
+      },
+    });
+  } else {
+    next(err);
+  }
+}
+
+function handle404Errors(err, req, res, next) {
+  if (err.statusCode === 404) {
+    res.status(404).json({
+      error: {
+        message: err.message,
+      },
+    });
+  } else {
+    next(err);
+  }
+}
+
+function handle500Errors(err, req, res, next) {
+  res.status(500).json({
+    error: {
+      message: "Internal server error",
+    },
+  });
+}
 
 function errorHandler(err, req, res, next) {
-    const status = err.status || 500;
-    const message = err.message || "Server error";
-    if (err) res.status(500).send({err});
-  }
+  console.log(err);
+  next(err);
+}
 
-  module.exports = errorHandler;
+  module.exports = { handle400Errors, handle404Errors, handle500Errors,errorHandler};

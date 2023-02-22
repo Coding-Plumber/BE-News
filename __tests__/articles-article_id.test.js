@@ -20,17 +20,13 @@ describe("GET /api/articles/:article_id", () => {
       .then((response) => {
         expect(response.status).toBe(200);
         expect(response.body).toBeInstanceOf(Object);
-        expect(response.body).toHaveProperty("requestedArticle");
-        expect(response.body.requestedArticle.comment_count).toEqual(
-          expect.any(Number)
-        );
-        expect(response.body.requestedArticle).toEqual({
+        expect(response.body).toHaveProperty("articleById");
+        expect(response.body.articleById).toEqual({
           article_id: 3,
           article_img_url:
             "https://images.pexels.com/photos/158651/news-newsletter-newspaper-information-158651.jpeg?w=700&h=700",
           author: "icellusedkars",
           body: "some gifs",
-          comment_count: 2,
           created_at: "2020-11-03T09:12:00.000Z",
           title: "Eight pug gifs that remind me of mitch",
           topic: "mitch",
@@ -68,7 +64,7 @@ describe("String input as pathway", () => {
       .get("/api/articles/'22'")
       .then((response) => {
         expect(response.status).toBe(400);
-        expect(response.body.message).toEqual("Invalid input");
+        expect(response.body.message).toEqual("Invalid input, please enter Int");
       });
   });
 });

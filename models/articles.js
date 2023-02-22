@@ -1,6 +1,7 @@
 const db = require("../db/connection");
 
 async function getArticlesWithCommentCount() {
+  try {
   const result = await db.query(
     `
     SELECT articles.*, COUNT(comments.comment_id) AS comment_count
@@ -12,16 +13,19 @@ async function getArticlesWithCommentCount() {
   );
   return result.rows.map((article) => ({
     ...article,
-    comment_count: Number(article.comment_count),
-    created_at: new Date(article.created_at),
-  }));
 
+    created_at: new Date(article.created_at),
+  }))
+} catch (error) {
+  throw error;
 }
+}
+
 
 async function getArticleById(id) {
   try {
     const result = await db.query(
-      `SELECT articles.*, COUNT(comments.comment_id) AS comment_count
+      `SELECT articles.* 
       FROM articles
       LEFT JOIN comments ON articles.article_id = comments.article_id
       WHERE articles.article_id = $1
@@ -36,7 +40,24 @@ async function getArticleById(id) {
   }
 }
 
+async function getCommentsByArticleId(id) {
+  try {
+    const result = await db.query(
+      `SELECT comments.*                                                      
+      FROM comments                                                                          
+      WHERE article_id = $1 
+      ORDER BY created_at DESC`,
+      [id]
+    );
+    const comments = result.rows;
+    return comments;
+  } catch (error) {
+    throw error;
+  }
+}
+
 module.exports = {
   getArticlesWithCommentCount,
   getArticleById,
+  getCommentsByArticleId,
 };

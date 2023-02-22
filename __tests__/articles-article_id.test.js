@@ -20,14 +20,17 @@ describe("GET /api/articles/:article_id", () => {
       .then((response) => {
         expect(response.status).toBe(200);
         expect(response.body).toBeInstanceOf(Object);
-        expect(response.body).toHaveProperty("article");
-        expect(response.body.article).toEqual({
+        expect(response.body).toHaveProperty("requestedArticle");
+        expect(response.body.requestedArticle.comment_count).toEqual(
+          expect.any(Number)
+        );
+        expect(response.body.requestedArticle).toEqual({
           article_id: 3,
           article_img_url:
             "https://images.pexels.com/photos/158651/news-newsletter-newspaper-information-158651.jpeg?w=700&h=700",
           author: "icellusedkars",
           body: "some gifs",
-          comment_count: "2",
+          comment_count: 2,
           created_at: "2020-11-03T09:12:00.000Z",
           title: "Eight pug gifs that remind me of mitch",
           topic: "mitch",

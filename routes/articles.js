@@ -1,13 +1,12 @@
 const apiArticles = require("express").Router();
 const {
-  
   getArticlesWithCommentCount,
   getArticleById,
 } = require("../models/articles");
 
 const express = require("express");
 const router = express.Router();
-const errorHandler = require('../errors/errorHandler');
+const errorHandler = require("../errors/errorHandler");
 
 router.get("/", (req, res) => {
   getArticlesWithCommentCount()
@@ -31,14 +30,15 @@ router.get("/:article_id", (req, res) => {
           message: "Article not found",
         });
       } else {
-        res.status(200).send({ article });
+        const requestedArticle = {...article, 
+        comment_count: Number(article.comment_count),
+      }
+        res.status(200).send({ requestedArticle });
       }
     })
     .catch((error) => {
       errorHandler(error, req, res);
     });
 });
-
-
 
 module.exports = router;

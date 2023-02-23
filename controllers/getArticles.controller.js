@@ -2,7 +2,7 @@ const {
   getArticleById,
   getArticlesWithCommentCount,
   getCommentsByArticleId,
-} = require("../models/articles");
+} = require("../models/getArticles.models");
 const errorHandler = require('../errors/errorHandler');
 
 async function getArticleController(req, res) {
@@ -56,6 +56,8 @@ async function getCommentsByArticleIdController(req, res) {
       errorHandler(error, req, res);
     });
 }
+
+
 
 module.exports = {
   getArticleController,

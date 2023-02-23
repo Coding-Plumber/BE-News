@@ -1,11 +1,20 @@
 const express = require('express');
 const app = express();
-app.use(express.json());
-
-const apiTopics = require('./routes/topics');
 
 
-app.use('/api/topics', apiTopics);
+const topicsRouter = require('./routes/topics');
+const articlesRouter = require('./routes/articles');
+const errorHandler = require('./errors/errorHandler');
+
+app.use('/api/topics', topicsRouter);
+
+app.use('/api/articles', articlesRouter);
+
+app.use(errorHandler);
+    
+
+  
+
 
 
 module.exports = app;

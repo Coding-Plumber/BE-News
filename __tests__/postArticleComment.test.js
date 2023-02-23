@@ -13,8 +13,8 @@ afterAll(() => {
     return seed(data);
   });
 
-  describe.only('POST /api/articles/:article_id/comments', () => {
-    it.only('Checks if the user has been created', async () => {
+  describe('POST /api/articles/:article_id/comments', () => {
+    it('Checks if the user has been created', async () => {
 
       const commentBody = 'BIG DOG';
       const username = 'lurker';
@@ -39,8 +39,8 @@ afterAll(() => {
 });
 
 
-  describe.only('POST /api/articles/:article_id/comments', () => {
-    it.only('Invalid username input', () => {
+  describe('POST /api/articles/:article_id/comments', () => {
+    it('Invalid username input', () => {
         return request(app)
         .post("/api/articles/3/comments")
         .send({username: 'Duncan', body: 'BIG DOG'})

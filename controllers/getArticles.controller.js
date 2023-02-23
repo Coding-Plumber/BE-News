@@ -18,7 +18,7 @@ async function getArticleController(req, res) {
 async function getArticleByIdController(req, res) {
   const articleId = req.params.article_id;
   if (isNaN(articleId)) {
-    return res.status(400).send({ message: "Invalid input, please enter Int" });
+    return res.status(400).send({ message: "Invalid input" });
   }
   getArticleById(articleId)
     .then((article) => {
@@ -46,7 +46,7 @@ async function getCommentsByArticleIdController(req, res) {
         res.status(404).send({ message: "Comments not found" });
       } else if (comments.length === 0) {
         res.status(404).send({
-          message: "Comments not found",
+          message: [],
         });
       } else {
         res.status(200).send({ articleComments: comments });

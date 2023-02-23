@@ -1,13 +1,13 @@
 const express = require('express');
 const app = express();
-const bodyParser = require('body-parser');
+
 
 
 const topicsRouter = require('./routes/topics');
 const articlesRouter = require('./routes/articles');
 const { errorHandler, handle400Errors, handle404Errors, postArticleCommentErrors, handle500Errors } = require('./errors/errorHandler');
 
-app.use(bodyParser.json());
+app.use(express.json());
 
 
 

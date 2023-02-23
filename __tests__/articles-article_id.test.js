@@ -64,7 +64,7 @@ describe("String input as pathway", () => {
       .get("/api/articles/'22'")
       .then((response) => {
         expect(response.status).toBe(400);
-        expect(response.body.message).toEqual("Invalid input, please enter Int");
+        expect(response.body.message).toEqual("Invalid input");
       });
   });
 });

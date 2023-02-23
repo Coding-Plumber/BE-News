@@ -26,10 +26,10 @@ function handle404Errors(err, req, res, next) {
 }
 
 function postArticleCommentErrors(err, req, res, next) {
-  // Error for inserting a comment to a article_id with a invalid username, eg /api/articles/3/comments
+  // Error for inserting a comment to a article_id with a invalid, eg /api/articles/3/comments
   if(err.code === '23503')
   
-  res.status(404).send({error: 'Invalid username'})
+  res.status(404).send({error: 'Invalid'})
 }
 
 function handle500Errors(err, req, res, next) {

@@ -44,37 +44,50 @@ describe("GET /api/articles/:article_id/comments", () => {
   });
 });
 
+describe("GET /api/articles/:article_id/comments", () => {
+  it("Attempt to get comments from an article with no comments", () => {
+    return request(app)
+      .get("/api/articles/4/comments")
+      .then((response) => {
+        expect(response.status).toBe(404);
+        expect(response.body).toBeInstanceOf(Object);
+        expect(response.body.message).toBeInstanceOf(Array);
+        expect(response.body.message).toEqual([]);
+      });
+  });
+});
+
 describe("GET wrong pathway /non-existant", () => {
-    it("GET /api/articles/:article_id/commentZ", () => {
-      return request(app)
-        .get("/articles/3/commentZ")
-        .then((response) => {
-          expect(response.status).toBe(404);
-        });
-    });
+  it("GET /api/articles/:article_id/commentZ", () => {
+    return request(app)
+      .get("/articles/3/commentZ")
+      .then((response) => {
+        expect(response.status).toBe(404);
+      });
   });
+});
 
-
-  describe("GET request that isn;t a article_id Number", () => {
-    it("GET /api/articles/'74'/comments", () => {
-      return request(app)
-        .get("/api/articles/'74'/comments")
-        .then((response) => {
-          expect(response.status).toBe(400);
-          expect(response.body).toEqual({ message: "Invalid input" });
-          expect(response.body).toBeInstanceOf(Object);
-        });
-    });
+describe("GET request that isn;t a article_id Number", () => {
+  it("GET /api/articles/'74'/comments", () => {
+    return request(app)
+      .get("/api/articles/'74'/comments")
+      .then((response) => {
+        expect(response.status).toBe(400);
+        expect(response.body).toEqual({ message: "Invalid input" });
+        expect(response.body).toBeInstanceOf(Object);
+      });
   });
+});
 
-  describe("GET non existant article_id", () => {
-    it("GET /api/articles/740/comments", () => {
-      return request(app)
-        .get("/api/articles/740/comments")
-        .then((response) => {
-          expect(response.status).toBe(404);
-          expect(response.body).toEqual({ message: "Comments not found" });
-          expect(response.body).toBeInstanceOf(Object);
-        });
-    });
+describe("GET non existant article_id", () => {
+  it("GET /api/articles/740/comments", () => {
+    return request(app)
+      .get("/api/articles/740/comments")
+      .then((response) => {
+        expect(response.status).toBe(404);
+        expect(response.body.message).toEqual([]);
+        expect(response.body.message).toBeInstanceOf(Array);
+        expect(response.body).toBeInstanceOf(Object);
+      });
   });
+});

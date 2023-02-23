@@ -7,7 +7,7 @@ async function patchVotes(req, res, next) {
 
   updateVoteCount(article_id, inc_votes)
     .then((votes) => {
-      res.status(200).send(votes);
+      res.status(200).send({ msg: votes });
     })
     .catch((err) => {
       errorHandler(err, req, res, next);

@@ -1,6 +1,6 @@
 const db = require("../db/connection");
 
-async function makeComment(articleId, username, body) {
+async function postComment(articleId, username, body) {
   try {
     const result = await db.query(
       `INSERT INTO comments (article_id, author, body) 
@@ -9,18 +9,12 @@ async function makeComment(articleId, username, body) {
       [articleId, username, body]
     );
     const comment = result.rows;
-
-    if (!comment) {
-      return Promise.reject({
-        status: 404,
-        message: "User not found",
-      });
-    } else {
-      return comment;
-    }
+    return comment;
+   
   } catch (error) {
+    
     throw error;
   }
 }
 
-module.exports = makeComment;
+module.exports = postComment;

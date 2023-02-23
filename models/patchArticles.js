@@ -12,17 +12,14 @@ async function updateVoteCount(articleId, newVotes) {
       RETURNING *`,
       [newVotes, articleId]
     );
+    if (result.rows.length === 0) {
+      return [];
+    }
     const updatedVotes = result.rows[0];
 
-    if (!updatedVotes) {
-      return Promise.reject({
-        status: 404,
-        message: "Article not found",
-      });
-    } else {
-      return updatedVotes;
-    }
+    return updatedVotes;
   } catch (error) {
+    
     throw error;
   }
 }

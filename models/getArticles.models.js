@@ -2,6 +2,7 @@ const db = require("../db/connection");
 
 async function getArticlesModels(topic, sortBy, order) {
   try {
+    
     const validColumns = [
       "article_id",
       "title",
@@ -13,10 +14,12 @@ async function getArticlesModels(topic, sortBy, order) {
       "article_img_url",
       "comment_count",
     ];
-// if given a sortBy input and it isn't one of the properties throw a error
+    // if given a sortBy input and it isn't one of the properties throw a error
+   
     if (sortBy && !validColumns.includes(sortBy)) {
-      throw Error('Invalid column name');
+      throw Error("Invalid column name");
     }
+    
 
     let requestPSQL = `
       SELECT articles.*, COUNT(comments.comment_id) AS comment_count
@@ -39,15 +42,18 @@ async function getArticlesModels(topic, sortBy, order) {
     `;
 
     const result = await db.query(requestPSQL, values);
-    return result.rows;
-
-
+    if(result.rows === 0) {
+      const error = new Error('No topics found');
+      error.status = 404;
+      throw error;
+    } else {
+       return result.rows;
+    }
   } catch (error) {
+    
     throw error;
   }
 }
-
-
 
 async function getArticleById(id) {
   try {

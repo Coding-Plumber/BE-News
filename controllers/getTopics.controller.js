@@ -8,7 +8,7 @@ async function getTopicsController(req, res) {
         return res.status(200).send(topics.rows);
       })
       .catch((error) => {
-        errorHandler(error, req, res);
+        errorHandler(error, req, res, next);
       });
 };
 

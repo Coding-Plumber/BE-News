@@ -31,7 +31,7 @@ async function getArticleByIdController(req, res) {
       }
     })
     .catch((error) => {
-      errorHandler(error, req, res);
+      errorHandler(error, req, res, next);
     });
 }
 
@@ -53,7 +53,7 @@ async function getCommentsByArticleIdController(req, res) {
       }
     })
     .catch((error) => {
-      errorHandler(error, req, res);
+      errorHandler(error, req, res, next);
     });
 }
 

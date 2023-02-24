@@ -1,20 +1,18 @@
 const db = require("../db/connection");
 
-async function getUsers(username) {
+async function getUsers() {
   try {
-    const result = await db.query(`SELECT * FROM users WHERE username = $1`, [
-      username,
-    ]);
-    const rows = result.rows;
-    const user = rows[0];
+    const result = await db.query(`SELECT * FROM users;`);
+    const users = result.rows;
+    
 
-    if (!user) {
+    if (!users) {
       return Promise.reject({
         status: 404,
         message: "User not found",
       });
     } else {
-      return user;
+      return users;
     }
   } catch (error) {
     throw error;

@@ -4,10 +4,7 @@ const { errorHandler } = require('../errors/errorHandler');
 const router = express.Router();
 
 
-router.get('/', getUsersController, (req, res, next) => {
-    errorHandler(err, req, res, next);
-});
-
+router.get('/', getUsersController);
 
 module.exports = router;
 

@@ -8,33 +8,16 @@ const {
 } = require("../controllers/getArticles.controller");
 const postArticleComments = require("../controllers/postArticles.controller");
 const patchVotes = require("../controllers/patchArticles.controller");
-const { errorHandler } = require("../errors/errorHandler");
 
-router.get("/", getArticleController, (req, res, next) => {
-  
-  errorHandler(err, req, res, next);
-});
 
-router.get("/:article_id", getArticleByIdController, (req, res, next) => {
-  errorHandler(err, req, res, next);
-});
+router.get("/", getArticleController)
 
-router.get(
-  "/:article_id/comments",
-  getCommentsByArticleIdController,
-  (req, res, next) => {
-    errorHandler(err, req, res, next);
-  }
-);
+router.get("/:article_id", getArticleByIdController);
 
-router.post("/:article_id/comments", postArticleComments, (req, res, next) => {
-  
-  errorHandler(err, req, res, next);
-});
+router.get("/:article_id/comments", getCommentsByArticleIdController);
 
-router.patch("/:article_id", patchVotes, (req, res, next) => {
-  
-  errorHandler(err, req, res, next);
-});
+router.post("/:article_id/comments", postArticleComments);
+
+router.patch("/:article_id", patchVotes)
 
 module.exports = router;

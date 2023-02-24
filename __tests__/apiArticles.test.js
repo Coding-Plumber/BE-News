@@ -17,6 +17,7 @@ describe("GET /api/articles", () => {
   it("responds with an array of article objects when given no parameters", () => {
     return request(app)
       .get("/api/articles")
+
       .then((response) => {
         expect(response.status).toBe(200);
         expect(response.body).toBeInstanceOf(Object);
@@ -91,7 +92,7 @@ it("should respond with multiple object array of topics 'mitch' sorted by commen
 
       expect(response.body.articles).toBeSorted({
         descending: true,
-        key: 'comment_count'
+        key: "comment_count",
       });
     });
 });
@@ -103,7 +104,7 @@ it("should respond with multiple object array sorted by comment_count DESC ", ()
     .then((response) => {
       expect(response.body.articles).toBeSorted({
         descending: true,
-        key: 'comment_count'
+        key: "comment_count",
       });
     });
 });
@@ -111,11 +112,12 @@ it("should respond with multiple object array sorted by comment_count DESC ", ()
 it("should respond with multiple object array sorted by a default of created_at, by DESC because no inputs given ", () => {
   return request(app)
     .get("/api/articles")
-    .query({ topic: null, sortBy: null , order: null })
+    .query({ topic: null, sortBy: null, order: null })
     .then((response) => {
+      
       expect(response.body.articles).toBeSorted({
         descending: true,
-        key: 'created_at'
+        key: "created_at",
       });
     });
 });
@@ -123,16 +125,22 @@ it("should respond with multiple object array sorted by a default of created_at,
 it("should return a error when given a non-valid sortBy property", () => {
   return request(app)
     .get("/api/articles")
-    .query({ topic: null, sortBy: 'hello' , order: null })
+    .query({ topic: null, sortBy: "hello", order: null })
     .then((response) => {
-      expect(response.status).toBe(400)
+      expect(response.status).toBe(400);
       expect(response.body.message).toEqual("Invalid column name");
-      });
     });
+});
 
 
 
+it("If input in topic is a bad request it automatically gets defaulted to DESC ", () => {
+  return request(app)
+    .get("/api/articles")
+    .query({ topic: 'Pringles', sortBy: null, order:'DESC' })
+    .then((response) => {
+      expect(response.status).toBe(200);
+      expect(response.body).toEqual({"articles": []});
 
-
-
-
+    })
+});

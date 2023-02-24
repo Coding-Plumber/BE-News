@@ -5,7 +5,7 @@ async function getUsersController(req, res, next) {
       const retrieveUsers = await getUsers();
       res.status(200).send({ users: retrieveUsers});
     } catch (error) {
-      errorHandler(error, req, res, next);
+      next(error);
     }
   }
 

@@ -25,11 +25,10 @@ describe("POST /api/articles/:article_id/comments", () => {
 
     expect(response.status).toEqual(201);
     expect(response.body).toBeInstanceOf(Object);
-    console.log(response.body);
+
     expect(response.body).toEqual({ comment: "BIG DOG" });
   });
 });
-
 
 it("returns 404 if the article_id is not a number", async () => {
   const commentBody = "BIG DOG";
@@ -39,8 +38,6 @@ it("returns 404 if the article_id is not a number", async () => {
     .send({ username, body: commentBody });
   expect(response.status).toEqual(404);
 });
-
-
 
 it("Invalid username input, expect 400 code", () => {
   return request(app)
@@ -56,14 +53,13 @@ it("Invalid username input, expect 400 code", () => {
 it("Missing field eg no body returns 400 code", () => {
   return request(app)
     .post("/api/articles/3/comments")
-    .send({ username: "Duncan"})
+    .send({ username: "Duncan" })
     .then((response) => {
       expect(response.status).toEqual(400);
       expect(response.body).toBeInstanceOf(Object);
       expect(response.body).toEqual({ error: "Invalid" });
     });
 });
-
 
 it("Invalid pathway, expect code 404", async () => {
   const commentBody = "BIG DOG";
@@ -77,5 +73,3 @@ it("Invalid pathway, expect code 404", async () => {
   expect(response.status).toEqual(404);
   expect(response.body).toBeInstanceOf(Object);
 });
-
-

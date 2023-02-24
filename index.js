@@ -3,6 +3,7 @@ const app = express();
 
 const topicsRouter = require("./routes/topics");
 const articlesRouter = require("./routes/articles");
+const usersRouter = require("./routes/users");
 const {
   
   handle400Errors,
@@ -10,12 +11,13 @@ const {
   handle500Errors,
   errorHandler,
 } = require("./errors/errorHandler");
-
 app.use(express.json());
 
 app.use("/api/topics", topicsRouter);
 
 app.use("/api/articles", articlesRouter);
+
+app.use("/api/users", usersRouter);
 
 app.use(handle400Errors);
 app.use(psqlErrors);

@@ -10,6 +10,7 @@ async function getArticleController(req, res, next) {
     const { topic, sortBy, order } = req.query;
     // queries PSQL databse with await async request
     const sortedArticlesDesc = await getArticlesModels(topic, sortBy, order);
+    
     // returns results and maps over them converting comment_count to Number;
     const returnedArticles = sortedArticlesDesc.map((article) => {
       return {

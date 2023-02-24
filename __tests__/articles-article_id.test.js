@@ -14,7 +14,7 @@ beforeEach(() => {
 });
 
 describe("GET /api/articles/:article_id", () => {
-  it("responds with an array of article objects", () => {
+  it("responds with the requested article_id object", () => {
     return request(app)
       .get("/api/articles/3")
       .then((response) => {
@@ -31,23 +31,33 @@ describe("GET /api/articles/:article_id", () => {
           title: "Eight pug gifs that remind me of mitch",
           topic: "mitch",
           votes: 0,
+          comment_count: 2,
         });
       });
   });
 });
 
-describe("GET wrong pathway /non-existant", () => {
-  it("GET /api/articles/:article_id/hello", () => {
+it("responds with the requested comment counts of another article with a larger count", () => {
+  return request(app)
+    .get("/api/articles/1")
+    .then((response) => {
+      expect(response.status).toBe(200);
+      expect(response.body.articleById.comment_count).toEqual(11);
+    })
+})
+
+
+  it("should return 404 error if bad pathway", () => {
     return request(app)
       .get("/articles/3/hello")
       .then((response) => {
         expect(response.status).toBe(404);
       });
   });
-});
 
-describe("GET non existant article_id", () => {
-  it("GET /api/articles/:article_id/37", () => {
+
+
+  it("returns with a 404 error and a message of article not found if it doesn't exist", () => {
     return request(app)
       .get("/api/articles/37")
       .then((response) => {
@@ -56,15 +66,16 @@ describe("GET non existant article_id", () => {
         expect(response.body).toBeInstanceOf(Object);
       });
   });
-});
 
-describe("String input as pathway", () => {
-  it("GET /api/articles/:article_id/'22'", () => {
+
+
+  it("Should respond with invalid input when given a string input", () => {
     return request(app)
       .get("/api/articles/'22'")
       .then((response) => {
         expect(response.status).toBe(400);
         expect(response.body.message).toEqual("Invalid input");
       });
-  });
-});
+    })
+ 
+

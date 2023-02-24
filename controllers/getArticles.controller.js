@@ -5,13 +5,12 @@ const {
 } = require("../models/getArticles.models");
 const { errorHandler } = require("../errors/errorHandler");
 
-
 async function getArticleController(req, res, next) {
   try {
     const { topic, sortBy, order } = req.query;
-// queries PSQL databse with await async request
+    // queries PSQL databse with await async request
     const sortedArticlesDesc = await getArticlesModels(topic, sortBy, order);
-// returns results and maps over them converting comment_count to Number;
+    // returns results and maps over them converting comment_count to Number;
     const returnedArticles = sortedArticlesDesc.map((article) => {
       return {
         ...article,
@@ -31,13 +30,18 @@ async function getArticleByIdController(req, res, next) {
     return res.status(400).send({ message: "Invalid input" });
   }
   getArticleById(articleId)
-    .then((article) => {
-      if (!article) {
+    .then((returnedArticle) => {
+      if (!returnedArticle || returnedArticle.length === 0) {
         res.status(404).send({
           message: "Article not found",
         });
       } else {
-        res.status(200).send({ articleById: article });
+        const newObject = {
+          ...returnedArticle,
+          comment_count: Number(returnedArticle.comment_count),
+        };
+
+        res.status(200).send({ articleById: newObject });
       }
     })
     .catch((error) => {

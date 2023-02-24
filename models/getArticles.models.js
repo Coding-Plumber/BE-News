@@ -52,7 +52,7 @@ async function getArticlesModels(topic, sortBy, order) {
 async function getArticleById(id) {
   try {
     const result = await db.query(
-      `SELECT articles.* 
+      `SELECT articles.*, COUNT(comments.comment_id) AS comment_count
       FROM articles
       LEFT JOIN comments ON articles.article_id = comments.article_id
       WHERE articles.article_id = $1

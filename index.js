@@ -7,6 +7,9 @@ app.use(cors());
 
 
 
+
+
+
 const topicsRouter = require("./routes/topics");
 const articlesRouter = require("./routes/articles");
 const usersRouter = require("./routes/users");

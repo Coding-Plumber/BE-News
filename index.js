@@ -1,5 +1,10 @@
 const express = require("express");
+
+
 const app = express();
+
+
+
 
 const topicsRouter = require("./routes/topics");
 const articlesRouter = require("./routes/articles");

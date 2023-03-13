@@ -1,7 +1,10 @@
+const cors = require('cors');
+const app = express();
+
+app.use(cors());
+
 const express = require("express");
 
-
-const app = express();
 
 
 

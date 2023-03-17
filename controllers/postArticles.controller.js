@@ -2,11 +2,13 @@ const { errorHandler } = require("../errors/errorHandler");
 const postComment = require("../models/postArticles.models");
 
 async function postArticleComments(req, res, next) {
-  if (!req.body.username || !req.body.body) {
-    return res.status(400).send({ error: "Invalid" });
-  }
   const { article_id } = req.params;
   const { username, body } = req.body;
+
+  if (!username || !body) {
+    return res.status(400).send({ error: "Invalid" });
+  }
+
   try {
     const userComment = await postComment(article_id, username, body);
     if (userComment) {

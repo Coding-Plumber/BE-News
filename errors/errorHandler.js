@@ -30,7 +30,7 @@ function handle500Errors(err, req, res, next) {
 }
 
 function errorHandler(err, req, res, next) {
-  // console.log(err, '<--- ERROR INSIDE ERROR HANDLER');
+
   next(err);
 }
 

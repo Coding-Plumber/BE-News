@@ -9,10 +9,9 @@ async function postComment(articleId, username, body) {
       [articleId, username, body]
     );
     const comment = result.rows;
+
     return comment;
-   
   } catch (error) {
-    
     throw error;
   }
 }

@@ -21,7 +21,7 @@ describe("POST /api/articles/:article_id/comments", () => {
 
     const response = await request(app)
       .post(`/api/articles/${articleId}/comments`)
-      .send({ username, body: commentBody });
+      .send({ username: username, body: commentBody });
 
     expect(response.status).toEqual(201);
     expect(response.body).toBeInstanceOf(Object);

@@ -3,7 +3,7 @@ const postComment = require("../models/postArticles.models");
 
 async function postArticleComments(req, res, next) {
   if (!req.body.username || !req.body.body) {
-    return res.status(400).send({ error: "Invalid" });
+    return res.status(400).send({ error: "error, no username or body found" });
   }
   const { article_id } = req.params;
   const { username, body } = req.body;
